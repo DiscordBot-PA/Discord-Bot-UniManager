@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.example.commands.BotCommand;
 import org.example.commands.CommandManager;
 
-public class Help implements BotCommand {
+public class Help implements BotCommand <SlashCommandInteractionEvent> {
     private final CommandManager commandManager;
 
     public Help(CommandManager commandManager) {

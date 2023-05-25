@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.example.commands.BotCommand;
 
-public class Hello implements BotCommand {
+public class Hello implements BotCommand <SlashCommandInteractionEvent>{
 
     @Override
     public String getCommand() {

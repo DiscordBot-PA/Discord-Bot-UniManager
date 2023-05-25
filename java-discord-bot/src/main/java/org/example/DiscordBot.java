@@ -9,10 +9,11 @@ import org.example.commands.CommandManager;
 import javax.security.auth.login.LoginException;
 
 public class DiscordBot {
-
-    public static void main(String[] args) throws LoginException {
-        String token = "your-token";
-        JDABuilder jdaBuilder = JDABuilder.createDefault(token);
+    //private final Dotenv config;
+    public DiscordBot() throws LoginException{
+//        config = Dotenv.configure().load();
+//        String token = config.get("TOKEN");
+        JDABuilder jdaBuilder = JDABuilder.createDefault("MTEwOTE1MzYxNjc5MjY1Mzk1OA.G0nuza.13YRjeCJqvnjHoWxnYfsmzTN_lWcszPMuuiKTs");
         JDA jda = jdaBuilder
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_MESSAGES)
                 .addEventListeners(new CommandManager())
@@ -20,6 +21,11 @@ public class DiscordBot {
 
         jda.upsertCommand("hello","This command returns \"Hello!\"").setGuildOnly(true).queue();
         jda.upsertCommand("help","Shows all commands and their description.").setGuildOnly(true).queue();
+        jda.upsertCommand("java","Shows all commands and their description.").setGuildOnly(true).queue();
 
+    }
+
+    public static void main(String[] args) throws LoginException {
+        DiscordBot discordBot = new DiscordBot();
     }
 }
