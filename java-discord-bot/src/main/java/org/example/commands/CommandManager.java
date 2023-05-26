@@ -3,9 +3,12 @@ package org.example.commands;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.example.commands.addPreference.AddPreference;
 import org.example.commands.hello.Hello;
 import org.example.commands.help.Help;
 import org.example.commands.rss.*;
+import org.example.commands.showPreferences.ShowPreferences;
+import org.example.model.Timetable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,8 @@ public class CommandManager extends ListenerAdapter {
     private final List<BotCommand> commands = new ArrayList<>();
 
     public CommandManager() {
+        Timetable timetable = new Timetable();
+
         commands.add(new Hello());
         commands.add(new Help(this));
         commands.add(new SpringRSS());
@@ -24,7 +29,8 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new JavaScriptRSS());
         commands.add(new NetRSS());
         commands.add(new ReactRSS());
-
+        commands.add(new AddPreference(timetable));
+        commands.add(new ShowPreferences(timetable));
     }
 
     @Override

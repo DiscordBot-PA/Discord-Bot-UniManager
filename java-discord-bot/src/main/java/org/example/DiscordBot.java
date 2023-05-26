@@ -3,6 +3,8 @@ package org.example;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.example.commands.CommandManager;
 
@@ -19,8 +21,14 @@ public class DiscordBot {
                 .addEventListeners(new CommandManager())
                 .build();
 
+        OptionData optionData1 = new OptionData(OptionType.STRING, "day", "ziua");
+        OptionData optionData2 = new OptionData(OptionType.STRING, "hour", "ora");
+        OptionData optionData3 = new OptionData(OptionType.STRING, "preference", "materia");
+
         jda.upsertCommand("hello","This command returns \"Hello!\"").setGuildOnly(true).queue();
         jda.upsertCommand("help","Shows all commands and their description.").setGuildOnly(true).queue();
+        jda.upsertCommand("addpreference","This command adds a preference.").addOptions(optionData1, optionData2, optionData3).setGuildOnly(true).queue();
+        jda.upsertCommand("showpreferences","Shows all preferences in the timetable.").setGuildOnly(true).queue();
 
     }
 
