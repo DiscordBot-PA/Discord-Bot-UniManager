@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.example.commands.hello.Hello;
 import org.example.commands.help.Help;
-import org.example.commands.rss.JavaRSS;
+import org.example.commands.rss.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,14 @@ public class CommandManager extends ListenerAdapter {
     public CommandManager() {
         commands.add(new Hello());
         commands.add(new Help(this));
+        commands.add(new SpringRSS());
+        commands.add(new GamingRss());
+        commands.add(new DevRSS());
+        commands.add(new PythonRSS());
         commands.add(new JavaRSS());
+        commands.add(new JavaScriptRSS());
+        commands.add(new NetRSS());
+
     }
 
     @Override
