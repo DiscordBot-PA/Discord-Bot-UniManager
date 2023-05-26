@@ -65,6 +65,6 @@ public class NetRSS implements BotCommand<MessageReceivedEvent> {
 
     @Override
     public String getDescription() {
-        return null;
+        return "Shows 5 newest articles about .NET";
     }
 }

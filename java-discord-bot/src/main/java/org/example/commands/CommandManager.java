@@ -23,6 +23,7 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new JavaRSS());
         commands.add(new JavaScriptRSS());
         commands.add(new NetRSS());
+        commands.add(new ReactRSS());
 
     }
 

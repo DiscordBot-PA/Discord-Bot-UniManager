@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class JavaRSS implements BotCommand<MessageReceivedEvent>{
-
-
+public class JavaRSS implements BotCommand<MessageReceivedEvent> {
     @Override
     public String getCommand() {
         return "!java";
@@ -35,7 +33,7 @@ public class JavaRSS implements BotCommand<MessageReceivedEvent>{
 
         FeedFetcher fetcher = new HttpURLFeedFetcher();
         try {
-            SyndFeed feed = fetcher.retrieveFeed(new URL("https://feeds.feedblitz.com/baeldung"));
+            SyndFeed feed = fetcher.retrieveFeed(new URL("https://www.infoworld.com/category/java/index.rss"));
             int count = 5;
             for (Object o : feed.getEntries()) {
                 SyndEntry entry = (SyndEntry) o;
@@ -67,6 +65,6 @@ public class JavaRSS implements BotCommand<MessageReceivedEvent>{
 
     @Override
     public String getDescription() {
-        return null;
+        return "Shows 5 newest articles about Java";
     }
 }

@@ -21,7 +21,6 @@ public class DiscordBot {
 
         jda.upsertCommand("hello","This command returns \"Hello!\"").setGuildOnly(true).queue();
         jda.upsertCommand("help","Shows all commands and their description.").setGuildOnly(true).queue();
-        jda.upsertCommand("java","Shows all commands and their description.").setGuildOnly(true).queue();
 
     }
 

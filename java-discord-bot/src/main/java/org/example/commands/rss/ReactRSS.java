@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class JavaScriptRSS implements BotCommand<MessageReceivedEvent> {
+public class ReactRSS implements BotCommand<MessageReceivedEvent> {
     @Override
     public String getCommand() {
-        return "!js";
+        return "!react";
     }
 
     @Override
@@ -33,17 +33,17 @@ public class JavaScriptRSS implements BotCommand<MessageReceivedEvent> {
 
         FeedFetcher fetcher = new HttpURLFeedFetcher();
         try {
-            SyndFeed feed = fetcher.retrieveFeed(new URL("https://www.infoworld.com/category/javascript/index.rss"));
+            SyndFeed feed = fetcher.retrieveFeed(new URL("https://reactscript.com/feed"));
             int count = 5;
             for (Object o : feed.getEntries()) {
                 SyndEntry entry = (SyndEntry) o;
                 EmbedBuilder eb = new EmbedBuilder();
-                eb.setColor(Color.YELLOW);
+                eb.setColor(Color.BLUE);
                 eb.setAuthor(Objects.requireNonNull(event.getGuild()).getName());
-                eb.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png");
+                eb.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png");
                 eb.addField("Title: ", entry.getTitle(), true);
                 eb.addField("Link: ", entry.getLink(), true);
-                eb.setDescription("Topic: " + "JavaScript");
+                eb.setDescription("Topic: " + "React");
 
                 event.getChannel().sendMessageEmbeds(eb.build()).queue();
                 count--;
@@ -65,6 +65,6 @@ public class JavaScriptRSS implements BotCommand<MessageReceivedEvent> {
 
     @Override
     public String getDescription() {
-        return "Shows 5 newest articles about JavaScript";
+        return "Shows 5 newest articles about React";
     }
 }
