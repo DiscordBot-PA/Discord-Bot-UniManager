@@ -8,8 +8,12 @@ import org.example.commands.hello.Hello;
 import org.example.commands.help.Help;
 import org.example.commands.rss.*;
 import org.example.commands.showPreferences.ShowPreferences;
+import org.example.model.Student;
 import org.example.model.Timetable;
+import org.example.repository.GradeRepository;
 import org.example.repository.PreferencesRepository;
+import org.example.repository.StudentRepository;
+import org.example.showGrades.ShowGrades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,8 @@ public class CommandManager extends ListenerAdapter {
 
     public CommandManager() {
         PreferencesRepository preferencesRepository = new PreferencesRepository();
+        GradeRepository gradeRepository = new GradeRepository();
+        StudentRepository studentRepository = new StudentRepository();
         Timetable timetable = new Timetable(preferencesRepository);
 
         commands.add(new Hello());
@@ -33,6 +39,8 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new ReactRSS());
         commands.add(new AddPreference(timetable));
         commands.add(new ShowPreferences());
+        commands.add(new AddGrade(gradeRepository, studentRepository));
+        commands.add(new ShowGrades(studentRepository));
     }
 
     @Override
