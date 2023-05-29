@@ -1,12 +1,13 @@
 package org.example;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.example.commands.CommandManager;
+import org.example.model.Student;
+import org.example.repository.StudentRepository;
 
 import javax.security.auth.login.LoginException;
 
@@ -34,5 +35,11 @@ public class DiscordBot {
 
     public static void main(String[] args) throws LoginException {
         DiscordBot discordBot = new DiscordBot();
+
+        StudentRepository studentRepository = new StudentRepository();
+        Student student = new Student();
+        student.setName("Dorel");
+        studentRepository.create(student);
+
     }
 }

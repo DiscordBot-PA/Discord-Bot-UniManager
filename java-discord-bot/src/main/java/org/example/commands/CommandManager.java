@@ -9,6 +9,7 @@ import org.example.commands.help.Help;
 import org.example.commands.rss.*;
 import org.example.commands.showPreferences.ShowPreferences;
 import org.example.model.Timetable;
+import org.example.repository.PreferencesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,8 @@ public class CommandManager extends ListenerAdapter {
     private final List<BotCommand> commands = new ArrayList<>();
 
     public CommandManager() {
-        Timetable timetable = new Timetable();
+        PreferencesRepository preferencesRepository = new PreferencesRepository();
+        Timetable timetable = new Timetable(preferencesRepository);
 
         commands.add(new Hello());
         commands.add(new Help(this));
@@ -30,7 +32,7 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new NetRSS());
         commands.add(new ReactRSS());
         commands.add(new AddPreference(timetable));
-        commands.add(new ShowPreferences(timetable));
+        commands.add(new ShowPreferences());
     }
 
     @Override

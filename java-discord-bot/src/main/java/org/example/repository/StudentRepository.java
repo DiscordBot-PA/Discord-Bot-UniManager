@@ -1,4 +1,4 @@
-package org.example;
+package org.example.repository;
 
 import javax.persistence.*;
 
@@ -10,13 +10,13 @@ import java.util.List;
 
 public class StudentRepository {
     /**
-     * Metoda salveaza un obiect de tip Artist in baza de date
-     * @param artist
+     * Metoda salveaza un obiect de tip Student in baza de date
+     * @param student
      */
-    public void create(Student artist) {
+    public void create(Student student) {
         EntityManager em = EntityManagerFactoryUtil.getEntityManagerFactory().createEntityManager();
         em.getTransaction().begin();
-        em.persist(artist);
+        em.persist(student);
         em.getTransaction().commit();
         em.close();
     }
