@@ -20,7 +20,7 @@ public class PreferencesRepository {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            TypedQuery<Preference> query = entityManager.createQuery("SELECT p FROM Preference p", Preference.class);
+            TypedQuery<Preference> query = entityManager.createQuery("SELECT p FROM Preference p ORDER BY p.date", Preference.class);
             return query.getResultList();
         } finally {
             entityManager.close();
@@ -28,6 +28,9 @@ public class PreferencesRepository {
     }
 
     public void save(Preference preference) {
+
+        System.out.println("SUNT IN SAVE");
+        System.out.println(" GRUPA: " +preference.getGroup());
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
