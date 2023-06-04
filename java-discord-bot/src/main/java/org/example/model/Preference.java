@@ -20,6 +20,9 @@ public class Preference {
     @Column(name = "subject")
     private String subject;
 
+    @Column(name = "subject_component")
+    private String subjectComponent;
+
     @Column(name = "group_name")
     private String group;
 
@@ -33,11 +36,20 @@ public class Preference {
     }
 
 
-    public Preference(String day, int hour, String subject, String group, String username, LocalDateTime date) {
+    public String getSubjectComponent() {
+        return subjectComponent;
+    }
+
+    public void setSubjectComponent(String subjectComponent) {
+        this.subjectComponent = subjectComponent;
+    }
+
+    public Preference(String day, int hour, String subject, String group, String subjectComponent , String username, LocalDateTime date) {
         this.day = day;
         this.hour = hour;
         this.subject = subject;
         this.group = group;
+        this.subjectComponent = subjectComponent;
         this.username = username;
         this.date = date;
     }

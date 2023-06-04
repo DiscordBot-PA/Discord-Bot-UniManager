@@ -22,10 +22,11 @@ public class DiscordBot {
                 .addEventListeners(new CommandManager())
                 .build();
 
-        OptionData dayOption = new OptionData(OptionType.STRING, "day", "ziua");
-        OptionData hourOption = new OptionData(OptionType.STRING, "hour", "ora");
-        OptionData preferenceOption = new OptionData(OptionType.STRING, "subject", "materia");
-        OptionData groupOption = new OptionData(OptionType.STRING, "group", "grupa");
+        OptionData dayOption = new OptionData(OptionType.STRING, "day", "Days: Monday, Tuesday.");
+        OptionData hourOption = new OptionData(OptionType.STRING, "hour", "Hours: 8, 10, 12");
+        OptionData preferenceOption = new OptionData(OptionType.STRING, "subject", "Subjects: IP, PA.");
+        OptionData groupOption = new OptionData(OptionType.STRING, "group", "Groups: B4, A5.");
+        OptionData componentOption = new OptionData(OptionType.STRING, "component", "Subject components: course, seminar.");
 
         OptionData registrationNrOption = new OptionData(OptionType.STRING, "registrationnumber", "student registration number");
         OptionData gradeValueOption = new OptionData(OptionType.STRING, "value", "grade value");
@@ -33,12 +34,11 @@ public class DiscordBot {
 
         jda.upsertCommand("hello","This command returns \"Hello!\"").setGuildOnly(true).queue();
         jda.upsertCommand("help","Shows all commands and their description.").setGuildOnly(true).queue();
-        jda.upsertCommand("addpreference","This command adds a preference.").addOptions(dayOption, hourOption , preferenceOption, groupOption).setGuildOnly(true).queue();
+        jda.upsertCommand("addpreference","This command adds a preference.").addOptions(dayOption, hourOption , preferenceOption, groupOption, componentOption).setGuildOnly(true).queue();
         jda.upsertCommand("showpreferences","Shows all preferences in the timetable.").setGuildOnly(true).queue();
         jda.upsertCommand("addgrade","Add a grade to a student.").addOptions(registrationNrOption, gradeValueOption, subjectOption).setGuildOnly(true).queue();
         jda.upsertCommand("showgrades","Add a grade to a student.").addOptions(registrationNrOption).setGuildOnly(true).queue();
         jda.upsertCommand("generatetimetable","Generates the timetable.").setGuildOnly(true).queue();
-
 
     }
 
