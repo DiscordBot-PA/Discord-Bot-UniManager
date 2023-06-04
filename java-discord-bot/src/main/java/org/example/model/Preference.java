@@ -77,4 +77,17 @@ public class Preference {
     public void setSubject(String subject) {
         this.subject = subject;
     }
+
+    @Override
+    public String toString() {
+        return "Preference{" +
+                "id=" + id +
+                ", day='" + day + '\'' +
+                ", hour=" + hour +
+                ", subject='" + subject + '\'' +
+                ", group='" + group + '\'' +
+                ", username='" + username + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
