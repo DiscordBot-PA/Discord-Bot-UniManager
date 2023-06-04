@@ -1,6 +1,7 @@
 package org.example.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "preferences")
@@ -14,23 +15,39 @@ public class Preference {
     private String day;
 
     @Column(name = "hour")
-    private String hour;
+    private int hour;
 
     @Column(name = "subject")
     private String subject;
 
+    @Column(name = "group_name")
+    private String group;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "recorded_at")
+    private LocalDateTime date;
+
     public Preference() {
     }
 
-    public Preference(String day, String hour, String subject) {
+
+    public Preference(String day, int hour, String subject, String group, String username, LocalDateTime date) {
         this.day = day;
         this.hour = hour;
         this.subject = subject;
+        this.group = group;
+        this.username = username;
+        this.date = date;
     }
-
 
     public Long getId() {
         return id;
+    }
+
+    public String getGroup() {
+        return group;
     }
 
     public String getDay() {
@@ -41,11 +58,15 @@ public class Preference {
         this.day = day;
     }
 
-    public String getHour() {
+    public int getHour() {
         return hour;
     }
 
-    public void setHour(String hour) {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setHour(int hour) {
         this.hour = hour;
     }
 

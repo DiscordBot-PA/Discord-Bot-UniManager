@@ -31,20 +31,18 @@ public class ShowPreferences implements BotCommand<SlashCommandInteractionEvent>
 
         for (Preference preference : preferences) {
             String day = preference.getDay();
-            String hour = preference.getHour();
+            int hour = preference.getHour();
             String subject = preference.getSubject();
+            String group = preference.getGroup();
+            String username = preference.getUsername();
 
             if (daySubjects.containsKey(day)) {
-                // Append the subject to the existing line
-                daySubjects.get(day).append("\n- ").append(hour).append(": ").append(subject);
+                daySubjects.get(day).append("\n- ").append(hour).append(": ").append(subject).append(", ").append(group).append(" -> ").append(username);
             } else {
-                // Create a new line for the day and subject
-                StringBuilder line = new StringBuilder(day + ":\n- " + hour + ": " + subject);
+                StringBuilder line = new StringBuilder(day + ":\n- " + hour + ": " + subject + ", "+ group + " -> " + username);
                 daySubjects.put(day, line);
             }
         }
-
-// Append the day and subject lines to the timetableMessage string
         for (StringBuilder line : daySubjects.values()) {
             timetableMessage.append(line).append("\n");
         }
