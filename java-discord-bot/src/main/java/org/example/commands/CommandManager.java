@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.example.commands.addPreference.AddPreference;
+import org.example.commands.generateTimetable.GenerateTimetable;
 import org.example.commands.hello.Hello;
 import org.example.commands.help.Help;
 import org.example.commands.rss.*;
@@ -41,6 +42,7 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new ShowPreferences());
         commands.add(new AddGrade(gradeRepository, studentRepository));
         commands.add(new ShowGrades(studentRepository));
+        commands.add(new GenerateTimetable(timetable));
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Timetable {
     }
 
     public List<Preference> getPreferences() {
-        return preferences;
+        return preferencesRepository.getAllPreferences();
     }
 
     public void clearPreferences() {
