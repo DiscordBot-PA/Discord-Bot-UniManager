@@ -58,29 +58,24 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
                 }
             }
         }
-        // După procesarea preferințelor, alocăm sloturile rămase
         for (TimeSlot possibleSlot : allPossibleSlots) {
-            // Atribuim slotul profesorului, materiei și grupului
             possibleSlot.setProfessor(professors[professorIndex]);
             possibleSlot.setSubject(subjects[subjectIndex]);
             possibleSlot.setGroup(groups[groupIndex]);
             schedule.add(possibleSlot);
 
-            // Avansăm la următorul profesor, materie și grup
             professorIndex = (professorIndex + 1) % professors.length;
             subjectIndex = (subjectIndex + 1) % subjects.length;
             groupIndex = (groupIndex + 1) % groups.length;
         }
 
-        // Print the schedule
         for (TimeSlot timeSlot : schedule) {
             System.out.println(timeSlot.getDay() + " " + timeSlot.getHour() + ":00 - " + timeSlot.getProfessor() + " - Group " + timeSlot.getGroup() + " - Subject: " + timeSlot.getSubject());
         }
 
+        timetable.setSchedule(schedule);
         event.reply("Timetable generated.").setEphemeral(true).queue();
     }
-
-
 
 
     @Override
