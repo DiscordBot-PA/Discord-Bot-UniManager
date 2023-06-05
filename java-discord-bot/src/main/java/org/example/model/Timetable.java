@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.repository.PreferencesRepository;
+import org.example.repository.ScheduleRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,6 +44,36 @@ public class Timetable {
 
     public List<Preference> getPreferences() {
         return preferencesRepository.getAllPreferences();
+    }
+
+    public List<TimeSlot> getTimeSlotsBySubjectAndGroup(String subject, String group) {
+        List<TimeSlot> subjectTimeSlots = new ArrayList<>();
+        for (TimeSlot timeSlot : schedule) {
+            if (timeSlot.getSubject().equalsIgnoreCase(subject) && timeSlot.getGroup().equalsIgnoreCase(group)) {
+                subjectTimeSlots.add(timeSlot);
+            }
+        }
+        return subjectTimeSlots;
+    }
+
+    public List<TimeSlot> getTimeSlotsBySubject(String subject) {
+        List<TimeSlot> subjectTimeSlots = new ArrayList<>();
+        for (TimeSlot timeSlot : schedule) {
+            if (timeSlot.getSubject().equalsIgnoreCase(subject)) {
+                subjectTimeSlots.add(timeSlot);
+            }
+        }
+        return subjectTimeSlots;
+    }
+
+    public List<TimeSlot> getTimeSlotsByGroup(String group) {
+        List<TimeSlot> subjectTimeSlots = new ArrayList<>();
+        for (TimeSlot timeSlot : schedule) {
+            if (timeSlot.getGroup().equalsIgnoreCase(group)) {
+                subjectTimeSlots.add(timeSlot);
+            }
+        }
+        return subjectTimeSlots;
     }
 
     public void clearPreferences() {

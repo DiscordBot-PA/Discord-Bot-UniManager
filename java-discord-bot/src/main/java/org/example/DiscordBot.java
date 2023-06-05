@@ -39,6 +39,7 @@ public class DiscordBot {
         jda.upsertCommand("addgrade","Add a grade to a student.").addOptions(registrationNrOption, gradeValueOption, subjectOption).setGuildOnly(true).queue();
         jda.upsertCommand("showgrades","Add a grade to a student.").addOptions(registrationNrOption).setGuildOnly(true).queue();
         jda.upsertCommand("generatetimetable","Generates the timetable.").setGuildOnly(true).queue();
+        jda.upsertCommand("asktimetable","Ask timetable whatever you want based on subject and group.").addOptions(groupOption, subjectOption).setGuildOnly(true).queue();
 
     }
 

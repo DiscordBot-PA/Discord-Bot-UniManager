@@ -9,7 +9,7 @@ import org.example.commands.hello.Hello;
 import org.example.commands.help.Help;
 import org.example.commands.rss.*;
 import org.example.commands.showPreferences.ShowPreferences;
-import org.example.model.Student;
+import org.example.commands.timetableQuestions.TimetableQuestions;
 import org.example.model.Timetable;
 import org.example.repository.GradeRepository;
 import org.example.repository.PreferencesRepository;
@@ -43,6 +43,7 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new AddGrade(gradeRepository, studentRepository));
         commands.add(new ShowGrades(studentRepository));
         commands.add(new GenerateTimetable(timetable));
+        commands.add(new TimetableQuestions(timetable));
     }
 
     @Override
