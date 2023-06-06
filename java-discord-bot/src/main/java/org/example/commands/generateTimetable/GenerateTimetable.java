@@ -59,6 +59,7 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
             }
         }
         for (TimeSlot possibleSlot : allPossibleSlots) {
+
             possibleSlot.setProfessor(professors[professorIndex]);
             possibleSlot.setSubject(subjects[subjectIndex]);
             possibleSlot.setGroup(groups[groupIndex]);

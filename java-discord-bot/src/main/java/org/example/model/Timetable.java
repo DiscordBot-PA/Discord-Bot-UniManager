@@ -75,6 +75,26 @@ public class Timetable {
         }
         return subjectTimeSlots;
     }
+    public List<TimeSlot> getTimeSlotsByHour(int hour, String day) {
+        List<TimeSlot> subjectTimeSlots = new ArrayList<>();
+        for (TimeSlot timeSlot : schedule) {
+            if (timeSlot.getHour() == hour && timeSlot.getDay().equalsIgnoreCase(day)) {
+                subjectTimeSlots.add(timeSlot);
+            }
+        }
+        return subjectTimeSlots;
+    }
+
+    public List<TimeSlot> getTimeSlotsByDayAndTeacher(String day, String teacher) {
+        List<TimeSlot> subjectTimeSlots = new ArrayList<>();
+        for (TimeSlot timeSlot : schedule) {
+            if (timeSlot.getDay().equalsIgnoreCase(day) && timeSlot.getProfessor().equalsIgnoreCase(teacher)) {
+                subjectTimeSlots.add(timeSlot);
+            }
+        }
+        return subjectTimeSlots;
+    }
+
 
     public void clearPreferences() {
         preferences.clear();
