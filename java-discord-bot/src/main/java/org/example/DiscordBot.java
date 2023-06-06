@@ -33,6 +33,12 @@ public class DiscordBot {
         OptionData subjectOption = new OptionData(OptionType.STRING, "subject", "subject title");
         OptionData teacherOption = new OptionData(OptionType.STRING, "teacher", "teacher's name");
 
+        OptionData optionA = new OptionData(OptionType.STRING, "q1", "Question 1");
+        OptionData optionB = new OptionData(OptionType.STRING, "q2", "Question 2");
+        OptionData optionC = new OptionData(OptionType.STRING, "q3", "Question 3");
+        OptionData optionD = new OptionData(OptionType.STRING, "q4", "Question 4");
+
+
         jda.upsertCommand("hello","This command returns \"Hello!\"").setGuildOnly(true).queue();
         jda.upsertCommand("help","Shows all commands and their description.").setGuildOnly(true).queue();
         jda.upsertCommand("addpreference","This command adds a preference.").addOptions(dayOption, hourOption , preferenceOption, groupOption, componentOption).setGuildOnly(true).queue();
@@ -41,6 +47,8 @@ public class DiscordBot {
         jda.upsertCommand("showgrades","Add a grade to a student.").addOptions(registrationNrOption).setGuildOnly(true).queue();
         jda.upsertCommand("generatetimetable","Generates the timetable.").setGuildOnly(true).queue();
         jda.upsertCommand("asktimetable","Ask timetable whatever you want based on subject, group and hour.").addOptions(groupOption, subjectOption, hourOption, dayOption, teacherOption).setGuildOnly(true).queue();
+        jda.upsertCommand("startquiz","Start a quiz.").addOptions(subjectOption).setGuildOnly(true).queue();
+        jda.upsertCommand("submitquiz","Submit the answers for a quiz.").addOptions(optionA, optionB, optionC, optionD).setGuildOnly(true).queue();
 
     }
 

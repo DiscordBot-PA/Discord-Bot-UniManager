@@ -7,9 +7,13 @@ import org.example.commands.addPreference.AddPreference;
 import org.example.commands.generateTimetable.GenerateTimetable;
 import org.example.commands.hello.Hello;
 import org.example.commands.help.Help;
+import org.example.commands.quiz.StartQuiz;
+import org.example.commands.quiz.SubmitQuiz;
 import org.example.commands.rss.*;
 import org.example.commands.showPreferences.ShowPreferences;
 import org.example.commands.timetableQuestions.TimetableQuestions;
+import org.example.model.Question;
+import org.example.model.QuestionManager;
 import org.example.model.Timetable;
 import org.example.repository.GradeRepository;
 import org.example.repository.PreferencesRepository;
@@ -17,6 +21,7 @@ import org.example.repository.StudentRepository;
 import org.example.showGrades.ShowGrades;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandManager extends ListenerAdapter {
@@ -27,6 +32,7 @@ public class CommandManager extends ListenerAdapter {
         GradeRepository gradeRepository = new GradeRepository();
         StudentRepository studentRepository = new StudentRepository();
         Timetable timetable = new Timetable(preferencesRepository);
+        QuestionManager questionManager = new QuestionManager();
 
         commands.add(new Hello());
         commands.add(new Help(this));
@@ -44,6 +50,8 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new ShowGrades(studentRepository));
         commands.add(new GenerateTimetable(timetable));
         commands.add(new TimetableQuestions(timetable));
+        commands.add(new StartQuiz(questionManager.getQuestions()));
+        commands.add(new SubmitQuiz(questionManager.getQuestions()));
     }
 
     @Override
