@@ -23,8 +23,11 @@ public class ShowTimetable implements BotCommand<SlashCommandInteractionEvent> {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        //a function that sort the timetable by day and hour
         List<TimeSlot> timeSlots = timetable.getSchedule();
+        if(timeSlots == null){
+            event.reply("The timetable is empty!").setEphemeral(true).queue();
+            return;
+        }
         Collections.sort(timeSlots, new Comparator<TimeSlot>() {
             @Override
             public int compare(TimeSlot o1, TimeSlot o2) {
@@ -34,12 +37,7 @@ public class ShowTimetable implements BotCommand<SlashCommandInteractionEvent> {
                 return o1.getDay().compareTo(o2.getDay());
             }
         });
-        //a string builder that concatenates the timetable lines like this Tuesday 10:00 - tudstk - Group A5 - Subject: PA
-        //Tuesday 8:00 - George - Group B4 - Subject: IP
-        //Monday 10:00 - George - Group Course - Subject: IP
-        //Monday 8:00 - tudstk - Group B4 - Subject: PA
-        //Monday 12:00 - tudstk - Group Course - Subject: PA
-        //Tuesday 12:00 - George - Group A5 - Subject: IP
+
 
         StringBuilder stringBuilder = new StringBuilder();
         for(TimeSlot timeSlot : timeSlots){
