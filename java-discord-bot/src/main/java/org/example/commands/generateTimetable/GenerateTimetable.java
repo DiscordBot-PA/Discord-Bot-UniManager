@@ -58,16 +58,28 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
                 }
             }
         }
+        String[] lastProfessorGroup = new String[professors.length];
+        for (int i = 0; i < professors.length; i++) {
+            lastProfessorGroup[i] = "";
+        }
         for (TimeSlot possibleSlot : allPossibleSlots) {
 
             possibleSlot.setProfessor(professors[professorIndex]);
             possibleSlot.setSubject(subjects[subjectIndex]);
-            possibleSlot.setGroup(groups[groupIndex]);
+
+            // alternează între grupe
+            if (!lastProfessorGroup[professorIndex].equals(groups[0])) {
+                possibleSlot.setGroup(groups[0]);
+                lastProfessorGroup[professorIndex] = groups[0];
+            } else {
+                possibleSlot.setGroup(groups[1]);
+                lastProfessorGroup[professorIndex] = groups[1];
+            }
+
             schedule.add(possibleSlot);
 
             professorIndex = (professorIndex + 1) % professors.length;
             subjectIndex = (subjectIndex + 1) % subjects.length;
-            groupIndex = (groupIndex + 1) % groups.length;
         }
 
         for (TimeSlot timeSlot : schedule) {

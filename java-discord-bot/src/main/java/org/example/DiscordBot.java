@@ -48,7 +48,7 @@ public class DiscordBot {
         jda.upsertCommand("generatetimetable","Generates the timetable.").setGuildOnly(true).queue();
         jda.upsertCommand("asktimetable","Ask timetable whatever you want based on subject, group and hour.").addOptions(groupOption, subjectOption, hourOption, dayOption, teacherOption).setGuildOnly(true).queue();
         jda.upsertCommand("startquiz","Start a quiz.").addOptions(subjectOption).setGuildOnly(true).queue();
-        jda.upsertCommand("submitquiz","Submit the answers for a quiz.").addOptions(optionA, optionB, optionC, optionD).setGuildOnly(true).queue();
+        jda.upsertCommand("submitquiz","Submit the answers for a quiz.").addOptions(subjectOption,optionA, optionB, optionC, optionD).setGuildOnly(true).queue();
 
     }
 
