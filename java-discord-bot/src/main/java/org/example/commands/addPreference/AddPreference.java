@@ -25,7 +25,7 @@ public class AddPreference implements BotCommand<SlashCommandInteractionEvent> {
     public void execute(SlashCommandInteractionEvent event) {
         List<String> availableDays = new ArrayList<>(Arrays.asList("Monday", "Tuesday"));
         List<String> availableSubjects = new ArrayList<>(Arrays.asList("IP", "PA"));
-        List<String> availableGroups = new ArrayList<>(Arrays.asList("B4", "A5"));
+        List<String> availableGroups = new ArrayList<>(Arrays.asList("B4", "A5","Course"));
         List<Integer> availableHours = new ArrayList<>(Arrays.asList(8, 10, 12));
         List<String> availableComponents= new ArrayList<>(Arrays.asList("course", "seminar"));
 
@@ -48,7 +48,7 @@ public class AddPreference implements BotCommand<SlashCommandInteractionEvent> {
                 event.reply("Error: the available hours are: 8, 10, 12.").setEphemeral(true).queue();
             }
             else if(!availableGroups.contains(group)){
-                event.reply("Error: the available groups are: B4, A5.").setEphemeral(true).queue();
+                event.reply("Error: the available groups are: B4, A5, Course.").setEphemeral(true).queue();
             }
             else if(!availableComponents.contains(component)){
                 event.reply("Error: the available components are: course, seminar.").setEphemeral(true).queue();
