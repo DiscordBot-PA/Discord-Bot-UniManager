@@ -27,7 +27,10 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
         ArrayList<TimeSlot> schedule = new ArrayList<>();
         ArrayList<Preference> unavailablePref = new ArrayList<>();
         String[] professors = {"tudstk", "George"};
-        String[] subjects = {"IP", "PA"};
+        Map<String, String> professorSubjects = new HashMap<>();
+        professorSubjects.put("tudstk", "PA");
+        professorSubjects.put("George", "IP");
+        String[] subjects = {"PA", "IP"};
         String[] groups = {"B4", "A5", "Course"};
         int professorIndex = 0;
         int subjectIndex = 0;
@@ -47,10 +50,40 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
                 unavailablePref.add(preference);
             }
         }
+        for(Preference preference : unavailablePref){
+            for (TimeSlot possibleSlot : allPossibleSlots) {
+                if (possibleSlot.getProfessor() == null) {
+                    possibleSlot.setProfessor(preference.getUsername());
+                    possibleSlot.setSubject(preference.getSubject());
+                    possibleSlot.setGroup(preference.getGroup());
+                    schedule.add(possibleSlot);
+                    removeTimeSlot(allPossibleSlots,possibleSlot);
+                    break;
+                }
+            }
+        }
         for (TimeSlot possibleSlot : allPossibleSlots) {
-            possibleSlot.setProfessor(professors[professorIndex]);
-            possibleSlot.setSubject(subjects[subjectIndex]);
-            ArrayList<String> professorGroup = professorGroups.get(professors[professorIndex]);
+            boolean professorFound = false;
+            int startingProfIndex = professorIndex;
+            ArrayList<String> professorGroup = null;
+            while(!professorFound){
+                String professor = professors[professorIndex];
+                possibleSlot.setProfessor(professor);
+                possibleSlot.setSubject(professorSubjects.get(professor));
+                professorGroup = professorGroups.get(professor);
+                boolean isCourseGivenToday = isCourseGivenToday(schedule, possibleSlot.getDay(), professor);
+                boolean isTimeSlotFree = isTimeSlotFree(schedule, possibleSlot.getDay(), possibleSlot.getHour(), professor);
+                if((!isCourseGivenToday && !professorGroup.contains("Course")) && isTimeSlotFree){
+                    professorFound = true;
+                }
+                professorIndex = (professorIndex + 1) % professors.length;
+                if(professorIndex == startingProfIndex){
+                    break;
+                }
+            }
+            if(!professorFound){
+                continue;
+            }
             for(String group : groups) {
                 if(!professorGroup.contains(group)) {
                     possibleSlot.setGroup(group);
@@ -62,8 +95,6 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
                 }
             }
             schedule.add(possibleSlot);
-            professorIndex = (professorIndex + 1) % professors.length;
-            subjectIndex = (subjectIndex + 1) % subjects.length;
         }
         for (TimeSlot timeSlot : schedule) {
             System.out.println(timeSlot.getDay() + " " + timeSlot.getHour() + ":00 - " + timeSlot.getProfessor() + " - Group " + timeSlot.getGroup() + " - Subject: " + timeSlot.getSubject());
@@ -71,7 +102,6 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
         timetable.setSchedule(schedule);
         event.reply("Timetable generated.").setEphemeral(true).queue();
     }
-
 
     @Override
     public String getDescription() {
@@ -84,7 +114,6 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
                 return true;
             }
         }
-
         return false;
     }
 
@@ -101,5 +130,23 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
             }
         }
         return allPossibleSlots;
+    }
+
+    public boolean isCourseGivenToday(ArrayList<TimeSlot> schedule, String day, String professor){
+        for(TimeSlot timeSlot : schedule){
+            if(timeSlot.getDay().equals(day) && timeSlot.getProfessor().equals(professor) && timeSlot.getGroup().equals("Course")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isTimeSlotFree(ArrayList<TimeSlot> schedule, String day, int hour, String professor){
+        for(TimeSlot timeSlot : schedule){
+            if(timeSlot.getDay().equals(day) && timeSlot.getHour() == hour && timeSlot.getProfessor().equals(professor)){
+                return false;
+            }
+        }
+        return true;
     }
 }

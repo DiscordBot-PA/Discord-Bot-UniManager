@@ -27,7 +27,7 @@ public class TimetableQuestions implements BotCommand<SlashCommandInteractionEve
         StringBuilder timetableMessage = new StringBuilder();
         Map<String, StringBuilder> daySubjects = new HashMap<>();
         List<String> availableSubjects = new ArrayList<>(Arrays.asList("IP", "PA"));
-        List<String> availableGroups = new ArrayList<>(Arrays.asList("B4", "A5"));
+        List<String> availableGroups = new ArrayList<>(Arrays.asList("B4", "A5","Course"));
         List<Integer> availableHours = new ArrayList<>(Arrays.asList(8, 10, 12));
         List<String> availableDays = new ArrayList<>(Arrays.asList("Monday", "Tuesday"));
         List<String> availableTeachers = new ArrayList<>(Arrays.asList("tudstk", "Tuesday"));
@@ -38,7 +38,7 @@ public class TimetableQuestions implements BotCommand<SlashCommandInteractionEve
             String group = event.getOption("group").getAsString();
             if(!availableGroups.contains(group))
             {
-                event.reply("Error: available groups are A5 and B4.").setEphemeral(true).queue();
+                event.reply("Error: available groups are A5, B4 and Course.").setEphemeral(true).queue();
             }
             else if(!availableSubjects.contains(subject)){
                 event.reply("Error: available subjects are IP and PA.").setEphemeral(true).queue();

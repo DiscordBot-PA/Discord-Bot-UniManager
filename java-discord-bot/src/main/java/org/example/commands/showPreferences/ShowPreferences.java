@@ -35,12 +35,11 @@ public class ShowPreferences implements BotCommand<SlashCommandInteractionEvent>
             String subject = preference.getSubject();
             String group = preference.getGroup();
             String username = preference.getUsername();
-            String component = preference.getSubjectComponent();
 
             if (daySubjects.containsKey(day)) {
-                daySubjects.get(day).append("\n- ").append(hour).append(": ").append(subject).append(", ").append(component).append(" ").append(group).append(" -> ").append(username);
+                daySubjects.get(day).append("\n- ").append(hour).append(":00: ").append(subject).append(", ").append(group).append(" -> ").append(username);
             } else {
-                StringBuilder line = new StringBuilder(day).append(":\n- ").append(hour).append(":00").append(": ").append(subject).append(", ").append(component).append(" ").append(group).append(" -> ").append(username);
+                StringBuilder line = new StringBuilder(day).append(":\n- ").append(hour).append(":00").append(": ").append(subject).append(", ").append(group).append(" -> ").append(username);
                 daySubjects.put(day, line);
             }
         }

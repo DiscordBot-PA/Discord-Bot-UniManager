@@ -11,6 +11,7 @@ import org.example.commands.quiz.StartQuiz;
 import org.example.commands.quiz.SubmitQuiz;
 import org.example.commands.rss.*;
 import org.example.commands.showPreferences.ShowPreferences;
+import org.example.commands.showTimetable.ShowTimetable;
 import org.example.commands.timetableQuestions.TimetableQuestions;
 import org.example.model.Question;
 import org.example.model.QuestionManager;
@@ -52,6 +53,7 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new TimetableQuestions(timetable));
         commands.add(new StartQuiz(questionManager.getQuestions()));
         commands.add(new SubmitQuiz(questionManager.getQuestions()));
+        commands.add(new ShowTimetable(timetable));
     }
 
     @Override

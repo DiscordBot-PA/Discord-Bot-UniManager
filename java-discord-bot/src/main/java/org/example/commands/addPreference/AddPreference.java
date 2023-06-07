@@ -27,7 +27,6 @@ public class AddPreference implements BotCommand<SlashCommandInteractionEvent> {
         List<String> availableSubjects = new ArrayList<>(Arrays.asList("IP", "PA"));
         List<String> availableGroups = new ArrayList<>(Arrays.asList("B4", "A5","Course"));
         List<Integer> availableHours = new ArrayList<>(Arrays.asList(8, 10, 12));
-        List<String> availableComponents= new ArrayList<>(Arrays.asList("course", "seminar"));
 
         if (event.getOption("day") != null && event.getOption("hour") != null && event.getOption("subject") != null && event.getOption("group") != null) {
 
@@ -35,7 +34,7 @@ public class AddPreference implements BotCommand<SlashCommandInteractionEvent> {
             int hour = event.getOption("hour").getAsInt();
             String subject = event.getOption("subject").getAsString();
             String group = event.getOption("group").getAsString();
-            String component = event.getOption("component").getAsString();
+
             String username = event.getUser().getName();
 
             if(!availableDays.contains(day)){
@@ -50,11 +49,9 @@ public class AddPreference implements BotCommand<SlashCommandInteractionEvent> {
             else if(!availableGroups.contains(group)){
                 event.reply("Error: the available groups are: B4, A5, Course.").setEphemeral(true).queue();
             }
-            else if(!availableComponents.contains(component)){
-                event.reply("Error: the available components are: course, seminar.").setEphemeral(true).queue();
-            }
+
             else{
-                timetable.addPreference(day, hour, subject, group, component, username);
+                timetable.addPreference(day, hour, subject, group, username);
                 event.reply("Preference added to timetable.").setEphemeral(true).queue();
             }
         } else {

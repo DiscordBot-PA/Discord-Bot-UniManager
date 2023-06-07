@@ -26,8 +26,8 @@ public class Timetable {
         preferences = new ArrayList<>();
     }
 
-    public void addPreference(String day, int hour, String preference, String group, String subjectComponent, String username) {
-        Preference newPreference = new Preference(day, hour, preference, group, subjectComponent, username, LocalDateTime.now());
+    public void addPreference(String day, int hour, String preference, String group,  String username) {
+        Preference newPreference = new Preference(day, hour, preference, group, username, LocalDateTime.now());
         preferences.add(newPreference);
         preferencesRepository.save(newPreference);
 
