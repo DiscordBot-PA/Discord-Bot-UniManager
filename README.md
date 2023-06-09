@@ -65,7 +65,7 @@ This function allows you to submit a completed quiz.
       - The course should be either Programming Advanced (PA) or Introduction to Programming (IP).
 #### RSS Feed
 The system provides multiple RSS feeds which can be accessed with the !rss command followed by the name of the feed:
-      - !dev
+      - dev
       - !gaming
       - !js
       - !net
