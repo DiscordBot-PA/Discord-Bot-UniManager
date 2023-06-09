@@ -103,7 +103,15 @@ The timetable generation algorithm works as follows:
 - /showTimetable : This function allows you to view the generated timetable.
     - Validation
         - If the timetable has not been generated yet, a warning message will be shown.
+#### Timetable Queries
 
+- /asktimetable function allows you to ask various questions related to the timetable. It accepts up to 5 optional parameters to answer the following questions:
+  - When does group X have course Y? (Provide: group + subject)
+  - What is the timetable of course X? (Provide: subject)
+  - What is the timetable of group X? (Provide: group)
+  - What do I have on day X at hour Y? (Provide: day + hour)
+  - What classes does professor X have on day Y? (Provide: teacher + day)
+  
 #### Quiz System
 - /startQuiz : This function allows you to start a quiz.
     - Validation:
@@ -135,12 +143,5 @@ In the CommandManager class, instances of StartQuiz and SubmitQuiz are created a
       7. !react
       8. !spring
 
-#### Timetable Queries
 
-- /asktimetable function allows you to ask various questions related to the timetable. It accepts up to 5 optional parameters to answer the following questions:
-  - When does group X have course Y? (Provide: group + subject)
-  - What is the timetable of course X? (Provide: subject)
-  - What is the timetable of group X? (Provide: group)
-  - What do I have on day X at hour Y? (Provide: day + hour)
-  - What classes does professor X have on day Y? (Provide: teacher + day)
 
