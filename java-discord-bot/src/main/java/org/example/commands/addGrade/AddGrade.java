@@ -1,7 +1,8 @@
-package org.example.commands;
+package org.example.commands.addGrade;
 
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import org.example.commands.BotCommand;
 import org.example.model.Grade;
 import org.example.model.Student;
 import org.example.repository.GradeRepository;
@@ -10,7 +11,7 @@ import org.example.repository.StudentRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddGrade implements BotCommand<SlashCommandInteractionEvent>{
+public class AddGrade implements BotCommand<SlashCommandInteractionEvent> {
     private final GradeRepository gradeRepository;
     private final StudentRepository studentRepository;
 
@@ -35,7 +36,6 @@ public class AddGrade implements BotCommand<SlashCommandInteractionEvent>{
         if(roleNames.contains("profesor")) {
             List<String> cursuri = new ArrayList<>();
             cursuri.add("PA");
-            cursuri.add("TW");
             cursuri.add("IP");
             if (event.getOption("registrationnumber") != null && event.getOption("value") != null && event.getOption("subject") != null) {
 

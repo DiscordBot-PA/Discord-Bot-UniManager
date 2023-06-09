@@ -188,7 +188,6 @@ public class TimetableQuestions implements BotCommand<SlashCommandInteractionEve
             else {
                 timeSlotList = timetable.getTimeSlotsByDayAndTeacher(day, teacher);
                 timetableMessage.append(day).append(" - ").append(teacher).append(":\n");
-                System.out.println("T I M E S L O T S   S I Z E : " + timeSlotList.size());
                 for (TimeSlot timeSlot : timeSlotList) {
                     String subject= timeSlot.getSubject();
                     int hour = timeSlot.getHour();

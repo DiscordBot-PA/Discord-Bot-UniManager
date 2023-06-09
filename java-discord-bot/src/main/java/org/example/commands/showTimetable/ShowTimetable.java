@@ -24,14 +24,14 @@ public class ShowTimetable implements BotCommand<SlashCommandInteractionEvent> {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         List<TimeSlot> timeSlots = timetable.getSchedule();
-        if(timeSlots == null){
+        if (timeSlots == null) {
             event.reply("The timetable is empty!").setEphemeral(true).queue();
             return;
         }
         Collections.sort(timeSlots, new Comparator<TimeSlot>() {
             @Override
             public int compare(TimeSlot o1, TimeSlot o2) {
-                if(o1.getDay().equals(o2.getDay())){
+                if (o1.getDay().equals(o2.getDay())) {
                     return o1.getHour() - o2.getHour();
                 }
                 return o1.getDay().compareTo(o2.getDay());
@@ -40,7 +40,7 @@ public class ShowTimetable implements BotCommand<SlashCommandInteractionEvent> {
 
 
         StringBuilder stringBuilder = new StringBuilder();
-        for(TimeSlot timeSlot : timeSlots){
+        for (TimeSlot timeSlot : timeSlots) {
             stringBuilder.append(timeSlot.getDay()).append(" ").append(timeSlot.getHour()).append(":00 - ").append(timeSlot.getProfessor()).append(" - Group ").append(timeSlot.getGroup()).append(" - Subject: ").append(timeSlot.getSubject()).append("\n");
         }
         event.reply(stringBuilder.toString()).setEphemeral(true).queue();

@@ -20,7 +20,7 @@ public class PythonRSS implements BotCommand<MessageReceivedEvent> {
 
     @Override
     public String getCommand() {
-        return "!phyton";
+        return "!python";
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PythonRSS implements BotCommand<MessageReceivedEvent> {
                 eb.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png");
                 eb.addField("Title: ", entry.getTitle(), true);
                 eb.addField("Link: ", entry.getLink(), true);
-                eb.setDescription("Topic: " + "Phyton");
+                eb.setDescription("Topic: " + "Python");
 
                 event.getChannel().sendMessageEmbeds(eb.build()).queue();
                 count--;

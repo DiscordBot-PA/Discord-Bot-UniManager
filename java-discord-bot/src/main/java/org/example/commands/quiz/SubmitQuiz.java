@@ -29,67 +29,71 @@ public class SubmitQuiz implements BotCommand<SlashCommandInteractionEvent> {
         String Q2 = Objects.requireNonNull(event.getOption("q2")).getAsString();
         String Q3 = Objects.requireNonNull(event.getOption("q3")).getAsString();
         String Q4 = Objects.requireNonNull(event.getOption("q4")).getAsString();
+
         List<Question> PA = new ArrayList<>();
         List<Question> IP = new ArrayList<>();
-        for(Question question : questions){
-            if(question.getSubject().equalsIgnoreCase("IP")){
+        for (Question question : questions) {
+            if (question.getSubject().equalsIgnoreCase("IP")) {
                 IP.add(question);
-            }else{
+            } else {
                 PA.add(question);
             }
         }
-        if(subject.equals("PA")) {
+        if (subject.equals("PA")) {
             checkAnswers(event, PA, Q1, Q2, Q3, Q4);
-        }else{
+        } else if (subject.equals("IP")) {
             checkAnswers(event, IP, Q1, Q2, Q3, Q4);
+        } else {
+            event.reply("Subject does not exist!").setEphemeral(true).queue();
         }
 
     }
-    public void checkAnswers(SlashCommandInteractionEvent event,List<Question> subQuestions,String Q1,String Q2,String Q3,String Q4){
+
+    public void checkAnswers(SlashCommandInteractionEvent event, List<Question> subQuestions, String Q1, String Q2, String Q3, String Q4) {
         StringBuilder sb = new StringBuilder("Your results:\n");
         int count = 1;
         int score = 0;
 
-            for(Question question : subQuestions){
-                if(count == 1){
-                    sb.append("Q1: You submitted ").append(Q1).append(", the correct answer was ");
-                    sb.append(question.getCorrectAnswer());
-                    if(Q1.equalsIgnoreCase(question.getCorrectAnswer())){
-                        sb.append(" | You were correct! (1p)");
-                        score++;
-                    }
-                    sb.append("\n");
-                }else if(count == 2){
-                    sb.append("Q2: You submitted ").append(Q2).append(", the correct answer was ");
-                    sb.append(question.getCorrectAnswer());
-                    if(Q2.equalsIgnoreCase(question.getCorrectAnswer())){
-                        sb.append(" | You were correct!");
-                        score++;
-                    }
-                    sb.append("\n");
-                }else if(count == 3){
-                    sb.append("Q3: You submitted ").append(Q3).append(", the correct answer was ");
-                    sb.append(question.getCorrectAnswer());
-                    if(Q3.equalsIgnoreCase(question.getCorrectAnswer())){
-                        sb.append(" | You were correct!");
-                        score++;
-                    }
-                    sb.append("\n");
+        for (Question question : subQuestions) {
+            if (count == 1) {
+                sb.append("Q1: You submitted ").append(Q1).append(", the correct answer was ");
+                sb.append(question.getCorrectAnswer());
+                if (Q1.equalsIgnoreCase(question.getCorrectAnswer())) {
+                    sb.append(" | You were correct! (1p)");
+                    score++;
                 }
-                else if(count == 4){
-                    sb.append("Q4: You submitted ").append(Q4).append(", the correct answer was ");
-                    sb.append(question.getCorrectAnswer());
-                    if(Q4.equalsIgnoreCase(question.getCorrectAnswer())){
-                        sb.append("  |  You were correct!");
-                        score++;
-                    }
-                    sb.append("\n");
+                sb.append("\n");
+            } else if (count == 2) {
+                sb.append("Q2: You submitted ").append(Q2).append(", the correct answer was ");
+                sb.append(question.getCorrectAnswer());
+                if (Q2.equalsIgnoreCase(question.getCorrectAnswer())) {
+                    sb.append(" | You were correct! (1p)");
+                    score++;
                 }
-                count++;
+                sb.append("\n");
+            } else if (count == 3) {
+                sb.append("Q3: You submitted ").append(Q3).append(", the correct answer was ");
+                sb.append(question.getCorrectAnswer());
+                if (Q3.equalsIgnoreCase(question.getCorrectAnswer())) {
+                    sb.append(" | You were correct! (1p)");
+                    score++;
+                }
+                sb.append("\n");
+            } else if (count == 4) {
+                sb.append("Q4: You submitted ").append(Q4).append(", the correct answer was ");
+                sb.append(question.getCorrectAnswer());
+                if (Q4.equalsIgnoreCase(question.getCorrectAnswer())) {
+                    sb.append("  |  You were correct! (1p)");
+                    score++;
+                }
+                sb.append("\n");
             }
+            count++;
+        }
         sb.append("Your score: ").append(score).append("/4 points");
         event.reply(String.valueOf(sb)).setEphemeral(true).queue();
     }
+
     @Override
     public String getDescription() {
         return "This command returns \"Hello!\".";

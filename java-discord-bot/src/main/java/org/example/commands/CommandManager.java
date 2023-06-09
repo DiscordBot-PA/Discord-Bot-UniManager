@@ -3,6 +3,7 @@ package org.example.commands;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.example.commands.addGrade.AddGrade;
 import org.example.commands.addPreference.AddPreference;
 import org.example.commands.generateTimetable.GenerateTimetable;
 import org.example.commands.hello.Hello;
@@ -13,7 +14,6 @@ import org.example.commands.rss.*;
 import org.example.commands.showPreferences.ShowPreferences;
 import org.example.commands.showTimetable.ShowTimetable;
 import org.example.commands.timetableQuestions.TimetableQuestions;
-import org.example.model.Question;
 import org.example.model.QuestionManager;
 import org.example.model.Timetable;
 import org.example.repository.GradeRepository;
@@ -22,7 +22,6 @@ import org.example.repository.StudentRepository;
 import org.example.showGrades.ShowGrades;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CommandManager extends ListenerAdapter {
