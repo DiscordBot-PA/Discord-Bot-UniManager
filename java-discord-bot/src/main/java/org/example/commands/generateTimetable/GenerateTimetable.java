@@ -1,5 +1,6 @@
 package org.example.commands.generateTimetable;
 
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.commands.BotCommand;
 import org.example.model.Preference;
@@ -23,84 +24,96 @@ public class GenerateTimetable implements BotCommand<SlashCommandInteractionEven
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        ArrayList<TimeSlot> allPossibleSlots = generateAllPossibleSlots();
-        ArrayList<TimeSlot> schedule = new ArrayList<>();
-        ArrayList<Preference> unavailablePref = new ArrayList<>();
-        String[] professors = {"tudstk", "George"};
-        Map<String, String> professorSubjects = new HashMap<>();
-        professorSubjects.put("tudstk", "PA");
-        professorSubjects.put("George", "IP");
-        String[] subjects = {"PA", "IP"};
-        String[] groups = {"B4", "A5", "Course"};
-        int professorIndex = 0;
-        int subjectIndex = 0;
-        Map<String, ArrayList<String>> professorGroups = new HashMap<>();
-        Map<String, Boolean> professorCourseGiven = new HashMap<>();
-        for (String professor : professors) {
-            professorGroups.put(professor, new ArrayList<>());
-            professorCourseGiven.put(professor, false);
+        List<String> roleNames = new ArrayList<>();
+
+        for (Role role : event.getMember().getRoles()) {
+            roleNames.add(role.getName());
         }
-        for (Preference preference : timetable.getPreferences()) {
-            TimeSlot desiredSlot = new TimeSlot(preference.getDay(), preference.getHour(), preference.getSubject(), preference.getGroup(), preference.getUsername());
-            if (isTimeSlotAvailable(allPossibleSlots, desiredSlot)) {
-                professorGroups.get(preference.getUsername()).add(preference.getGroup());
-                schedule.add(desiredSlot);
-                removeTimeSlot(allPossibleSlots, desiredSlot);
-            } else {
-                unavailablePref.add(preference);
+
+        if (roleNames.contains("admin")) {
+            ArrayList<TimeSlot> allPossibleSlots = generateAllPossibleSlots();
+            ArrayList<TimeSlot> schedule = new ArrayList<>();
+            ArrayList<Preference> unavailablePref = new ArrayList<>();
+            String[] professors = {"tudstk", "George"};
+            Map<String, String> professorSubjects = new HashMap<>();
+            professorSubjects.put("tudstk", "PA");
+            professorSubjects.put("George", "IP");
+            String[] groups = {"B4", "A5", "Course"};
+            int professorIndex = 0;
+            Map<String, ArrayList<String>> professorGroups = new HashMap<>();
+            Map<String, Boolean> professorCourseGiven = new HashMap<>();
+
+            for (String professor : professors) {
+                professorGroups.put(professor, new ArrayList<>());
+                professorCourseGiven.put(professor, false);
             }
-        }
-        for (Preference preference : unavailablePref) {
-            for (TimeSlot possibleSlot : allPossibleSlots) {
-                if (possibleSlot.getProfessor() == null) {
-                    possibleSlot.setProfessor(preference.getUsername());
-                    possibleSlot.setSubject(preference.getSubject());
-                    possibleSlot.setGroup(preference.getGroup());
-                    schedule.add(possibleSlot);
-                    removeTimeSlot(allPossibleSlots, possibleSlot);
-                    break;
+
+            for (Preference preference : timetable.getPreferences()) {
+                TimeSlot desiredSlot = new TimeSlot(preference.getDay(), preference.getHour(), preference.getSubject(), preference.getGroup(), preference.getUsername());
+                if (isTimeSlotAvailable(allPossibleSlots, desiredSlot)) {
+                    professorGroups.get(preference.getUsername()).add(preference.getGroup());
+                    schedule.add(desiredSlot);
+                    removeTimeSlot(allPossibleSlots, desiredSlot);
+                } else {
+                    unavailablePref.add(preference);
                 }
             }
-        }
-        for (TimeSlot possibleSlot : allPossibleSlots) {
-            boolean professorFound = false;
-            int startingProfIndex = professorIndex;
-            ArrayList<String> professorGroup = null;
-            while (!professorFound) {
-                String professor = professors[professorIndex];
-                possibleSlot.setProfessor(professor);
-                possibleSlot.setSubject(professorSubjects.get(professor));
-                professorGroup = professorGroups.get(professor);
-                boolean isCourseGivenToday = isCourseGivenToday(schedule, possibleSlot.getDay(), professor);
-                boolean isTimeSlotFree = isTimeSlotFree(schedule, possibleSlot.getDay(), possibleSlot.getHour(), professor);
-                if ((!isCourseGivenToday && !professorGroup.contains("Course")) && isTimeSlotFree) {
-                    professorFound = true;
-                }
-                professorIndex = (professorIndex + 1) % professors.length;
-                if (professorIndex == startingProfIndex) {
-                    break;
-                }
-            }
-            if (!professorFound) {
-                continue;
-            }
-            for (String group : groups) {
-                if (!professorGroup.contains(group)) {
-                    possibleSlot.setGroup(group);
-                    professorGroup.add(group);
-                    if (group.equals("Course")) {
-                        professorCourseGiven.put(professors[professorIndex], true);
+
+            for (Preference preference : unavailablePref) {
+                for (TimeSlot possibleSlot : allPossibleSlots) {
+                    if (possibleSlot.getProfessor() == null) {
+                        possibleSlot.setProfessor(preference.getUsername());
+                        possibleSlot.setSubject(preference.getSubject());
+                        possibleSlot.setGroup(preference.getGroup());
+                        schedule.add(possibleSlot);
+                        removeTimeSlot(allPossibleSlots, possibleSlot);
+                        break;
                     }
-                    break;
                 }
             }
-            schedule.add(possibleSlot);
+
+            for (TimeSlot possibleSlot : allPossibleSlots) {
+                boolean professorFound = false;
+                int startingProfIndex = professorIndex;
+                ArrayList<String> professorGroup = null;
+                while (!professorFound) {
+                    String professor = professors[professorIndex];
+                    possibleSlot.setProfessor(professor);
+                    possibleSlot.setSubject(professorSubjects.get(professor));
+                    professorGroup = professorGroups.get(professor);
+                    boolean isCourseGivenToday = isCourseGivenToday(schedule, possibleSlot.getDay(), professor);
+                    boolean isTimeSlotFree = isTimeSlotFree(schedule, possibleSlot.getDay(), possibleSlot.getHour(), professor);
+                    if ((!isCourseGivenToday && !professorGroup.contains("Course")) && isTimeSlotFree) {
+                        professorFound = true;
+                    }
+                    professorIndex = (professorIndex + 1) % professors.length;
+                    if (professorIndex == startingProfIndex) {
+                        break;
+                    }
+                }
+                if (!professorFound) {
+                    continue;
+                }
+                for (String group : groups) {
+                    if (!professorGroup.contains(group)) {
+                        possibleSlot.setGroup(group);
+                        professorGroup.add(group);
+                        if (group.equals("Course")) {
+                            professorCourseGiven.put(professors[professorIndex], true);
+                        }
+                        break;
+                    }
+                }
+                schedule.add(possibleSlot);
+            }
+            for (TimeSlot timeSlot : schedule) {
+                System.out.println(timeSlot.getDay() + " " + timeSlot.getHour() + ":00 - " + timeSlot.getProfessor() + " - Group " + timeSlot.getGroup() + " - Subject: " + timeSlot.getSubject());
+            }
+            timetable.setSchedule(schedule);
+            event.reply("Timetable generated.").setEphemeral(true).queue();
+        } else {
+            event.reply("You don't have the permission to use this command!").setEphemeral(true).queue();
         }
-        for (TimeSlot timeSlot : schedule) {
-            System.out.println(timeSlot.getDay() + " " + timeSlot.getHour() + ":00 - " + timeSlot.getProfessor() + " - Group " + timeSlot.getGroup() + " - Subject: " + timeSlot.getSubject());
-        }
-        timetable.setSchedule(schedule);
-        event.reply("Timetable generated.").setEphemeral(true).queue();
     }
 
     @Override
