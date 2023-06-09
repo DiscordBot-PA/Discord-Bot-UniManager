@@ -14,7 +14,7 @@ This project provides a comprehensive system for managing university courses, gr
 
 #### Grading system
 
-/addGrade
+- /addGrade
 This functionality allows the addition of grades to a student's record.
 
   - Restrictions:
@@ -23,14 +23,14 @@ This functionality allows the addition of grades to a student's record.
       - The grade value should be between 1 and 10 inclusive.
       - The courses that can be graded are Programming Advanced (PA) and Introduction to Programming (IP).
       
-/showGrade
+- /showGrade
 This function allows you to view the grades of a student.
   - Validation:
       - A valid registration number of the student must be provided.
 
 #### Preference System
 
-/addPreference
+- /addPreference
 This functionality allows setting preferences for class schedules.
   - Validations:
       - The day of the week should be either Monday or Tuesday.
@@ -38,27 +38,27 @@ This functionality allows setting preferences for class schedules.
       - The course should be either Programming Advanced (PA) or Introduction to Programming (IP).
       - The group should be either B4, A5, or Course.
 
-/showPreference
+- /showPreference
 This function allows you to view the set preferences.
 
 #### Timetable Management
-/generateTimetable
+- /generateTimetable
 This function generates a timetable based on the set preferences.
 
-/showTimetable
+- /showTimetable
 This function allows you to view the generated timetable.
 
 Warning:
 If the timetable has not been generated yet, a warning message will be shown.
 
 #### Quiz System
-/startQuiz
+- /startQuiz
 This function allows you to start a quiz.
 
   - Validation:
       - The course should be either Programming Advanced (PA) or Introduction to Programming (IP).
 
-/submitQuiz
+- /submitQuiz
 This function allows you to submit a completed quiz.
 
   - Validation:
@@ -75,7 +75,7 @@ The system provides multiple RSS feeds which can be accessed with the !rss comma
 
 #### Timetable Queries
 
-/asktimetable function allows you to ask various questions related to the timetable. It accepts up to 5 optional parameters to answer the following questions:
+- /asktimetable function allows you to ask various questions related to the timetable. It accepts up to 5 optional parameters to answer the following questions:
   - When does group X have course Y? (Provide: group + subject)
   - What is the timetable of course X? (Provide: subject)
   - What is the timetable of group X? (Provide: group)
