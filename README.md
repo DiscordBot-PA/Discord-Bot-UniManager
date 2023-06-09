@@ -144,7 +144,3 @@ In the CommandManager class, instances of StartQuiz and SubmitQuiz are created a
   - What do I have on day X at hour Y? (Provide: day + hour)
   - What classes does professor X have on day Y? (Provide: teacher + day)
 
-## Appendix
-
-Any additional information goes here
-
